@@ -141,7 +141,6 @@ async function main() {
         currentSong.volume=parseInt(e.target.value)/100;
     })
 
-    document.querySelectorAll('.cards').addEventListener('c')
 }
 main();
 
