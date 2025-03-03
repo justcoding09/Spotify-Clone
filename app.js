@@ -2,7 +2,7 @@ let currentSong = new Audio();
 let songs = [];
 async function getSongs() {
     try {
-        let response = await fetch("http://127.0.0.1:5500/Spotify-Clone/songs/");
+        let response = await fetch("file:///C:/Users/Rufi_/Desktop/Small%20Projects/Spotify-Clone/songs/");
         let data = await response.text();
         // console.log(data);  // This should log the array of song objects
         let div = document.createElement('div');
@@ -47,7 +47,9 @@ function updateSong(songName) {
     document.querySelector('#title').innerHTML = `${songName}`;
 }
 const playMusic = (songName, image) => {
-    currentSong.src = ('http://127.0.0.1:5500/Spotify-Clone/songs/' + songName + '.mp3');
+   // http://127.0.0.1:5500/songs/Zaalima.mp3
+   console.log('file:///C:/Users/Rufi_/Desktop/Small%20Projects/Spotify-Clone/songs/' + songName + '.mp3');
+    currentSong.src = ('file:///C:/Users/Rufi_/Desktop/Small%20Projects/Spotify-Clone/songs/' + songName + '.mp3');
     currentSong.play();
     updateSong(songName);
 }
@@ -114,34 +116,47 @@ async function main() {
     prev.addEventListener('click', () => {
         let currentSongName = currentSong.src.split('/').pop().split('.')[0];
         // Find the index of the current song in the songs array
-        let index = songs.indexOf(`http://127.0.0.1:5500/Spotify-Clone/songs/${currentSongName}.mp3`);
+        let index = songs.indexOf(`file:///C:/Users/Rufi_/Desktop/Small%20Projects/Spotify-Clone/songs/${currentSongName}.mp3`);
         //finding next song
         let nextsong = songs[(index - 1 + songs.length) % songs.length];
         updateSong(nextsong);
         currentSong.src = nextsong;
         currentSong.play();
+        check();
     })
     next.addEventListener('click', () => {
         let currentSongName = currentSong.src.split('/').pop().split('.')[0];
         // Find the index of the current song in the songs array
-        let index = songs.indexOf(`http://127.0.0.1:5500/Spotify-Clone/songs/${currentSongName}.mp3`);
+        let index = songs.indexOf(`file:///C:/Users/Rufi_/Desktop/Small%20Projects/Spotify-Clone/songs/${currentSongName}.mp3`);
         //finding next song
         let nextsong = songs[(index + 1) % songs.length];
         updateSong(nextsong);
         currentSong.src = nextsong;
         currentSong.play();
+        check();
     })
 
     document.querySelector('#loop').addEventListener('click',()=>{
         currentSong.currentTime=0;
+        if(!currentSong.played())
         currentSong.play();
+        check();
     })
 
     document.querySelector('.range').addEventListener('change',(e)=>{
         currentSong.volume=parseInt(e.target.value)/100;
     })
 
-    document.querySelectorAll('.cards').addEventListener('c')
+    function check(){
+        if (currentSong.paused) {
+            currentSong.play();
+            play.src = "Spotify images/output.png";
+        }
+        else {
+            currentSong.pause();
+            play.src = "Spotify images/player_icon3.png";
+        }    
+    }
 }
 main();
 
