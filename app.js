@@ -147,6 +147,7 @@ async function main() {
         currentSong.volume=parseInt(e.target.value)/100;
     })
 
+<<<<<<< HEAD
     function check(){
         if (currentSong.paused) {
             currentSong.play();
@@ -157,6 +158,8 @@ async function main() {
             play.src = "Spotify images/player_icon3.png";
         }    
     }
+=======
+>>>>>>> ea42912616775e1db7c142dffc3bc6664ebee0f6
 }
 main();
 
